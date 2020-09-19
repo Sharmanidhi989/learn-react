@@ -66,3 +66,171 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+```
+ES6 Revision
+
+var -> function
+let -> block
+const -> block
+
+const are immutable
+
+Objects are generally key value pairs
+functions with in a objects are called methods
+
+objects in ES6
+
+const person = {
+  name: "Happy",
+  walk(str) { console.log(str) }
+}
+
+person.walk("three steps")
+person['walk'] = "small steps"
+
+this key word in ES6
+
+const person = {
+  name: "Happy",
+  walk() { console.log(this) }
+}
+person.walk(); // simple returns the reference of the current object
+
+const walk = person.walk;
+console.log(walk); // now this is set to the walk function,
+walk(); // gives undefined
+
+If we call function as a method to the object it will return the reference to the object.
+But if we call stand alone function or outside of an object if will return by default global object i.e window obj but we got undefined (because of strick mode)
+
+How to fix it.
+In javascript functions are the objects
+const strol = person.walk.bind(person) // helps bind the function to object i.e now strol with point to person object
+
+strol();
+
+=> functions
+
+const square = (num) => {
+  return num * num
+}
+console.log(square(3))
+
+one param one line => function
+const square = num => num * num
+console.log(square(7))
+
+Arrow functions don't re-bind this
+
+const person = {
+  talk(){
+    setTimeout(function() {
+      console.log('this', this); 
+    }, 1000);
+  }
+} // function () rebinds 'this' to window
+
+To solve re-bind we did the following in the earlier times 
+
+const person = {
+  talk(){
+    var self = this;
+    setTimeout(function() {
+      console.log('self', self); 
+    }, 1000);
+  }
+} 
+
+but now we can use the arrow function
+const person = {
+  talk(){
+    setTimeout(() => {
+      console.log('this', this); 
+    }, 1000);
+  }
+}
+
+person.talk()
+
+Arrays and map
+const colors = ['red', 'green', 'blue']
+colors.map((color)=> { return console.log(color) })
+
+const colors = ['red', 'green', 'blue']
+const items = colors.map(color => `<li>${color}</li>`);
+console.log(items)
+
+Object Destructuring
+
+const address = {
+  street: '12 avenue',
+  city: 'london',
+  country: 'UK'
+}
+
+const { street, city, country } = address
+console.log(street)
+console.log(country)
+console.log(city)
+
+const {street: onlyStreetwithAlias } = address
+console.log(onlyStreetwithAlias)
+
+Spread Operator
+
+const first = [1,2,3,5,4,6]
+const second = [8,9,10]
+// const combined = first.concat(second) // old way
+let combine = [...first, ...second] //new way
+combine = [...first, 'joins', ...second]
+console.log(combine)
+
+let clone = [...first]
+console.log(clone)
+
+const first = {name: 'Nidhi'};
+const second = {job: 'ROR Devloper'}
+const combine = {...first, ...second, location: 'India'}
+console.log(combine)
+
+Classes and Inheritence
+
+class Person {
+  constructor(name){
+    this.name = name
+  }
+
+  walk(){
+    console.log('walk');
+  }
+}
+
+class Teacher extends Person{
+  constructor(name, degree){
+    super(name)
+    this.degree = degree
+  }
+
+  teach(){
+    console.log('teach');
+  }
+}
+
+const teacher = new Teacher('martha', 'phd')
+console.log(teacher);
+teacher.walk();
+teacher.teach();
+
+Module: files are divided into different files
+Object defined in a module are private therefore we need to export them
+
+just prefix the class with export
+
+example -> export class Teacher extends Person
+
+default and named exports
+Default -> import ... from '';
+Named -> import { ... } from '';
+
+```
