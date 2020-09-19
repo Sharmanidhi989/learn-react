@@ -1,10 +1,11 @@
-import React from 'react';
-import Counter from './components/counter'
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
-    <Counter/>
+    <main className="container">
+      <h1>test</h1>
+    </main>
   );
 }
 
