@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
+import Counter from './components/counter'
 import './App.css';
 
 function App() {
   return (
-    <h1>Hello World</h1>
+    <Counter/>
   );
 }
 
