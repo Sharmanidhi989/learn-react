@@ -126,27 +126,27 @@ Arrow functions don't re-bind this
 const person = {
   talk(){
     setTimeout(function() {
-      console.log('this', this); 
+      console.log('this', this);
     }, 1000);
   }
 } // function () rebinds 'this' to window
 
-To solve re-bind we did the following in the earlier times 
+To solve re-bind we did the following in the earlier times
 
 const person = {
   talk(){
     var self = this;
     setTimeout(function() {
-      console.log('self', self); 
+      console.log('self', self);
     }, 1000);
   }
-} 
+}
 
 but now we can use the arrow function
 const person = {
   talk(){
     setTimeout(() => {
-      console.log('this', this); 
+      console.log('this', this);
     }, 1000);
   }
 }
@@ -233,4 +233,23 @@ default and named exports
 Default -> import ... from '';
 Named -> import { ... } from '';
 
+```
+
+Difference between Props and State
+
+```
+Props ->
+props are params
+that we pass on to
+another component.
+
++ Props are read only
+
+State ->
+while states are internal and
+only used with a component in
+isolation.
+
++ States can be modified throught out the
+life cycle of the component.
 ```
