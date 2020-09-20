@@ -16,6 +16,14 @@ const Counters = () => {
     setCounters(counters.filter((c) => c.id != id));
   }
 
+  function handleIncrement(counter) {
+    const items = [...counters];
+    const index = counters.indexOf(counter);
+    items[index] = { ...counter };
+    items[index].value++;
+    setCounters(items);
+  }
+
   function handleReset() {
     let newCounters = counters.map((c) => {
       c.value = 0;
@@ -33,8 +41,8 @@ const Counters = () => {
         <Counter
           key={counter.id}
           onDelete={() => handleDelete(counter.id)}
-          value={counter.value}
-          id={counter.id}
+          onIncrement={() => handleIncrement(counter)}
+          counter={counter}
         >
           <h4>I am a new counter: MY id #{counter.id}</h4>
         </Counter>

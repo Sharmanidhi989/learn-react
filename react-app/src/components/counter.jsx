@@ -1,22 +1,23 @@
 import React, { Fragment, useState } from "react";
 
 const Counter = (props) => {
-  const [count, setCount] = useState(props.value);
   const [tags, setTags] = useState(["tag1", "tag2", "tag3"]);
   // React.createElement('h1') i.e first param is type of element to be rendered
   return (
     <Fragment>
       {props.children}
-      <span className={newStyle(count)}>{FormatCount(count)}</span>
+      <span className={newStyle(props.counter.value)}>
+        {FormatCount(props.counter.value)}
+      </span>
       <button
         className="btn btn-secondary btn-sm"
-        onClick={() => setCount(count + 1)}
+        onClick={() => props.onIncrement(props.counter)}
       >
         count ++
       </button>
       <button
         className="btn btn-danger btn-sm m-2"
-        onClick={() => props.onDelete(props.id)}
+        onClick={() => props.onDelete(props.counter.id)}
       >
         Delete
       </button>
