@@ -253,3 +253,8 @@ isolation.
 + States can be modified throught out the
 life cycle of the component.
 ```
+
+```
+The component that owns the piece of state
+should be the one modifying it.
+```

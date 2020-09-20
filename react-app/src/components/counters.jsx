@@ -11,10 +11,20 @@ const items = [
 
 const Counters = () => {
   const [counters, setCounters] = useState(items);
+
+  function handleDelete(id) {
+    setCounters(counters.filter((c) => c.id != id));
+  }
+
   return (
     <Fragment>
       {counters.map((counter) => (
-        <Counter key={counter.id} value={counter.value}>
+        <Counter
+          key={counter.id}
+          onDelete={() => handleDelete(counter.id)}
+          value={counter.value}
+          id={counter.id}
+        >
           <h4>I am a new counter: MY id #{counter.id}</h4>
         </Counter>
       ))}

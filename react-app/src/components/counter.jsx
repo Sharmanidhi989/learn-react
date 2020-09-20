@@ -14,6 +14,12 @@ const Counter = (props) => {
       >
         count ++
       </button>
+      <button
+        className="btn btn-danger btn-sm m-2"
+        onClick={() => props.onDelete(props.id)}
+      >
+        Delete
+      </button>
       {renderTags(tags)}
       {[].length === 0 && "given an empty array instead of tags"}
       {/* when the value is not boolean then it will try to conclude whether the value is trusy or false and then return the value */}
