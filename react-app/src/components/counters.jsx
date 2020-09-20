@@ -16,8 +16,19 @@ const Counters = () => {
     setCounters(counters.filter((c) => c.id != id));
   }
 
+  function handleReset() {
+    let newCounters = counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+    setCounters(newCounters);
+  }
+
   return (
     <Fragment>
+      <button onClick={handleReset} className="btn btn-primary btn-sm m-2">
+        Reset
+      </button>
       {counters.map((counter) => (
         <Counter
           key={counter.id}
