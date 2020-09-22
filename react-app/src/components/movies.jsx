@@ -21,54 +21,50 @@ const Movies = () => {
   } else {
     return (
       <Fragment>
-        <div className="container">
-          <h3 className="text-center">
-            There are {movies.length} in the list.
-          </h3>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Like</th>
-                <th>Stock</th>
-                <th>Rate</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {movies.map((movie) => {
-                let {
-                  _id,
-                  title,
-                  genre,
-                  numberInStock,
-                  dailyRentalRate,
-                  liked,
-                } = movie;
-                return (
-                  <tr key={_id}>
-                    <td>{title}</td>
-                    <td>{genre.name}</td>
-                    <td>{numberInStock}</td>
-                    <td>{dailyRentalRate}</td>
-                    <td>
-                      <Like liked={liked} onLike={() => handleLike(movie)} />
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => handleDelete(movie)}
-                        className="btn btn-danger btn-sm"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <h3 className="text-center">There are {movies.length} in the list.</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Genre</th>
+              <th>Like</th>
+              <th>Stock</th>
+              <th>Rate</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {movies.map((movie) => {
+              let {
+                _id,
+                title,
+                genre,
+                numberInStock,
+                dailyRentalRate,
+                liked,
+              } = movie;
+              return (
+                <tr key={_id}>
+                  <td>{title}</td>
+                  <td>{genre.name}</td>
+                  <td>{numberInStock}</td>
+                  <td>{dailyRentalRate}</td>
+                  <td>
+                    <Like liked={liked} onLike={() => handleLike(movie)} />
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDelete(movie)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </Fragment>
     );
   }
