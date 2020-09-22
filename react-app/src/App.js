@@ -54,8 +54,8 @@ function App() {
           handleDecrement={handleDecrement}
           counters={counters}
         />
-        <Movies />
       </main>
+      <Movies />
     </Fragment>
   );
 }
