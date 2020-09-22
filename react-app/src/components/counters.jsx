@@ -2,7 +2,13 @@ import React, { Fragment } from "react";
 import Counter from "../components/counter";
 
 const Counters = (props) => {
-  const { handleDelete, handleReset, handleIncrement, counters } = props;
+  const {
+    handleDelete,
+    handleReset,
+    handleIncrement,
+    handleDecrement,
+    counters,
+  } = props;
   return (
     <Fragment>
       <button onClick={handleReset} className="btn btn-primary btn-sm m-2">
@@ -13,6 +19,7 @@ const Counters = (props) => {
           key={counter.id}
           onDelete={() => handleDelete(counter.id)}
           onIncrement={() => handleIncrement(counter)}
+          onDecrement={() => handleDecrement(counter)}
           counter={counter}
         >
           <h4>I am a new counter: MY id #{counter.id}</h4>

@@ -258,3 +258,19 @@ life cycle of the component.
 The component that owns the piece of state
 should be the one modifying it.
 ```
+
+```
+Life cycle Hooks are called in following manner:
+
+Mounting Phase
+ - constructor
+ - rendered
+ - mounted
+
+Updating phase
+ - rendered
+ - component update
+
+Umounting phase
+  - component will unmount
+```

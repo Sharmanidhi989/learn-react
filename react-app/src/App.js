@@ -35,6 +35,14 @@ function App() {
     setCounters(newCounters);
   }
 
+  function handleDecrement(counter) {
+    const items = [...counters];
+    const index = counters.indexOf(counter);
+    items[index] = { ...counter };
+    items[index].value--;
+    setCounters(items);
+  }
+
   return (
     <Fragment>
       <Navbar count={counters.length} />
@@ -43,6 +51,7 @@ function App() {
           handleDelete={handleDelete}
           handleIncrement={handleIncrement}
           handleReset={handleReset}
+          handleDecrement={handleDecrement}
           counters={counters}
         />
         <Movies />
