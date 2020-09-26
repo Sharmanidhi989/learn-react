@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 
 const Pagination = (props) => {
   const { itemCount, pageSize, onPageChange } = props;
@@ -31,5 +32,15 @@ const Pagination = (props) => {
     </nav>
   );
 };
+
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired, // make it mandatory
+  pageSize: PropTypes.number,
+  pagesCount: PropTypes.number,
+  onPageChange: PropTypes.func,
+};
+
+// error example --> invalid prop 'nameOfProp' of type 'string'
+// gives warnings in only development phase
 
 export default Pagination;
