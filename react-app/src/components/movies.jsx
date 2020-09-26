@@ -1,8 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "./shared/like";
+import Pagination from "./shared/pagination";
+import paginate from "../utils/paginate";
+
 const Movies = () => {
   const [movies, setMovies] = useState(getMovies());
+  const [stepSize, setStepSize] = useState(4);
+  const [currentPage, setCurrentPage] = useState(1);
+  const movies_batch = paginate(movies, currentPage, stepSize);
 
   function handleDelete(movie) {
     setMovies(movies.filter((m) => m._id !== movie._id));
@@ -14,6 +20,10 @@ const Movies = () => {
     films[index] = { ...films[index] };
     films[index].liked = !films[index].liked;
     setMovies(films);
+  }
+
+  function handlePageChange(page) {
+    setCurrentPage(page);
   }
 
   if (movies.length === 0) {
@@ -34,7 +44,7 @@ const Movies = () => {
             </tr>
           </thead>
           <tbody>
-            {movies.map((movie) => {
+            {movies_batch.map((movie) => {
               let {
                 _id,
                 title,
@@ -65,6 +75,12 @@ const Movies = () => {
             })}
           </tbody>
         </table>
+        <Pagination
+          itemCount={movies.length}
+          pageSize={stepSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </Fragment>
     );
   }
