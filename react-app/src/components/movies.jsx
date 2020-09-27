@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-import Like from "./shared/like";
 import Pagination from "./shared/pagination";
 import paginate from "../utils/paginate";
 import ListGroup from "./shared/listGroup";
+import MoviesTable from "./moviesTable";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -64,49 +64,12 @@ const Movies = () => {
             />
           </div>
           <div className="col-sm-10">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Genre</th>
-                  <th>Like</th>
-                  <th>Stock</th>
-                  <th>Rate</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {movies_batch.map((movie) => {
-                  let {
-                    _id,
-                    title,
-                    genre,
-                    numberInStock,
-                    dailyRentalRate,
-                    liked,
-                  } = movie;
-                  return (
-                    <tr key={_id}>
-                      <td>{title}</td>
-                      <td>{genre.name}</td>
-                      <td>{numberInStock}</td>
-                      <td>{dailyRentalRate}</td>
-                      <td>
-                        <Like liked={liked} onLike={() => handleLike(movie)} />
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => handleDelete(movie)}
-                          className="btn btn-danger btn-sm"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            // all the components should be on same level of abstraction
+            <MoviesTable
+              movies={movies_batch}
+              onDelete={handleDelete}
+              onLike={handleLike}
+            />
             <Pagination
               itemCount={filtered.length}
               pageSize={stepSize}
