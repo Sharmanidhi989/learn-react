@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/navbar";
 import Products from "./components/products";
 import Posts from "./components/posts";
@@ -15,10 +15,14 @@ class App extends Component {
       <div>
         <NavBar />
         <div className="container">
-          <Route path="/products" component={Products} />
-          <Route path="/posts" component={Posts} />
-          <Route path="/admin" component={Dashboard} />
-          <Route path="/" component={Home} />
+          <Switch>
+            {/* order your routes fro more specific ones to generic ones -> first child will be matched  */}
+            <Route path="/products" component={Products} />
+            <Route path="/posts" component={Posts} />
+            <Route path="/admin" component={Dashboard} />
+            <Route path="/" exact component={Home} />
+          </Switch>
+          {/* <Route path="/" exact component={Home} /> exactly match the route */}
         </div>
       </div>
     );
