@@ -17,14 +17,14 @@ const Pagination = (props) => {
               }
               key={page}
             >
-              <a
+              <span
                 className="page-link"
-                onClick={() => {
-                  onPageChange(page);
+                onClick={(event) => {
+                  onPageChange(event, page);
                 }}
               >
                 {page}
-              </a>
+              </span>
             </li>
           );
         })}
@@ -34,10 +34,10 @@ const Pagination = (props) => {
 };
 
 Pagination.propTypes = {
-  itemsCount: PropTypes.number.isRequired, // make it mandatory
+  itemsCount: PropTypes.number, // make it mandatory
   pageSize: PropTypes.number,
   pagesCount: PropTypes.number,
-  onPageChange: PropTypes.func,
+  onPageChange: PropTypes.func.isRequired,
 };
 
 // error example --> invalid prop 'nameOfProp' of type 'string'
