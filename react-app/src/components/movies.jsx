@@ -10,12 +10,19 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [genres, setGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState(null);
   const stepSize = useState(4)[0];
-  const movies_batch = paginate(movies, currentPage, stepSize);
+  const filtered =
+    selectedGenre && selectedGenre._id
+      ? movies.filter((m) => m.genre._id === selectedGenre._id)
+      : movies;
+  const movies_batch = paginate(filtered, currentPage, stepSize);
 
   useEffect(() => {
     setMovies(getMovies());
-    setGenres(getGenres());
+
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+    setGenres(genres);
   }, []); //in favor of componentDidMount
 
   function handleDelete(movie) {
@@ -36,7 +43,8 @@ const Movies = () => {
   }
 
   function handleGenreSelect(genre) {
-    console.log(genre);
+    setCurrentPage(1);
+    setSelectedGenre(genre);
   }
 
   if (movies.length === 0) {
@@ -44,14 +52,15 @@ const Movies = () => {
   } else {
     return (
       <Fragment>
-        <h3 className="text-center">There are {movies.length} in the list.</h3>
+        <h3 className="text-center">
+          There are {filtered.length} in the list.
+        </h3>
         <div className="row">
           <div className="col-sm-2">
             <ListGroup
               items={genres}
               onGenreSelect={handleGenreSelect}
-              textProperty="name"
-              valueProperty="_id"
+              selectedGenre={selectedGenre}
             />
           </div>
           <div className="col-sm-10">
@@ -99,7 +108,7 @@ const Movies = () => {
               </tbody>
             </table>
             <Pagination
-              itemCount={movies.length}
+              itemCount={filtered.length}
               pageSize={stepSize}
               currentPage={currentPage}
               onPageChange={handlePageChange}
