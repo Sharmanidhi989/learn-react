@@ -5,6 +5,7 @@ import TableHeader from "./shared/tableHeader";
 
 const MoviesTable = (props) => {
   const { movies, onDelete, onLike, onSort, sortColumn } = props;
+
   const columns = [
     { path: "title", label: "Title" },
     { path: "genre.name", label: "Genre" },
@@ -28,6 +29,7 @@ const MoviesTable = (props) => {
       ),
     },
   ];
+
   return (
     <table className="table">
       <TableHeader columns={columns} onSort={onSort} sortColumn={sortColumn} />

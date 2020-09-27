@@ -12,10 +12,12 @@ const TableBody = (props) => {
 
   return (
     <tbody>
-      {data.map((item) => (
-        <tr>
+      {data.map((item, index) => (
+        <tr key={index}>
           {columns.map((column) => (
-            <td>{renderCell(item, column)}</td>
+            <td key={index + (column.path || column.key)}>
+              {renderCell(item, column)}
+            </td>
           ))}
         </tr>
       ))}
