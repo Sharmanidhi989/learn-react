@@ -2,9 +2,7 @@ import React from "react";
 import _ from "lodash";
 import { func } from "prop-types";
 
-const TableBody = (props) => {
-  const { data, columns } = props;
-
+const TableBody = ({ data, columns }) => {
   function renderCell(item, column) {
     if (column.content) return column.content(item);
     return _.get(item, column.path);

@@ -15,19 +15,22 @@ const Movies = () => {
   const [sortColumn, setSortColumn] = useState({ path: "title", order: "asc" });
   const stepSize = useState(4)[0];
 
-  const filtered =
-    selectedGenre && selectedGenre._id
-      ? movies.filter((m) => m.genre._id === selectedGenre._id)
-      : movies;
-  const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
-  const movies_batch = paginate(sorted, currentPage, stepSize);
-
   useEffect(() => {
     setMovies(getMovies());
 
     const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     setGenres(genres);
   }, []); //in favor of componentDidMount
+
+  function getPagedData() {
+    const filtered =
+      selectedGenre && selectedGenre._id
+        ? movies.filter((m) => m.genre._id === selectedGenre._id)
+        : movies;
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const movies_batch = paginate(sorted, currentPage, stepSize);
+    return { totalCount: filtered.length, data: movies_batch };
+  }
 
   function handleDelete(movie) {
     setMovies(movies.filter((m) => m._id !== movie._id));
@@ -58,11 +61,10 @@ const Movies = () => {
   if (movies.length === 0) {
     return <h1>There are no movies to show</h1>;
   } else {
+    const { totalCount, data } = getPagedData();
     return (
       <Fragment>
-        <h3 className="text-center">
-          There are {filtered.length} in the list.
-        </h3>
+        <h3 className="text-center">There are {totalCount} in the list.</h3>
         <div className="row">
           <div className="col-sm-2">
             <ListGroup
@@ -74,14 +76,14 @@ const Movies = () => {
           <div className="col-sm-10">
             {/* all the components should be on same level of abstraction */}
             <MoviesTable
-              movies={movies_batch}
+              movies={data}
               onDelete={handleDelete}
               onLike={handleLike}
               onSort={handleSort}
               sortColumn={sortColumn}
             />
             <Pagination
-              itemCount={filtered.length}
+              itemCount={totalCount}
               pageSize={stepSize}
               currentPage={currentPage}
               onPageChange={handlePageChange}
