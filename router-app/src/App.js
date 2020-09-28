@@ -16,13 +16,14 @@ class App extends Component {
         <NavBar />
         <div className="container">
           <Switch>
+            <Route path="/products/:id" component={ProductDetails} />
             {/* order your routes fro more specific ones to generic ones -> first child will be matched  */}
             <Route
               path="/products"
               render={(props) => <Products sortBy="newest" {...props} />}
             />
             {/* Route component is a wraper around the component that we pass in it. It has three props history, location, map */}
-            <Route path="/posts" component={Posts} />
+            <Route path="/posts/:year/:month" component={Posts} />
             <Route path="/admin" component={Dashboard} />
             <Route path="/" exact component={Home} />
           </Switch>
