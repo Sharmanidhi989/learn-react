@@ -23,7 +23,8 @@ class App extends Component {
               render={(props) => <Products sortBy="newest" {...props} />}
             />
             {/* Route component is a wraper around the component that we pass in it. It has three props history, location, map */}
-            <Route path="/posts/:year/:month" component={Posts} />
+            <Route path="/posts/:year?/:month?" component={Posts} />
+            {/* when we pass params in routes by default they are required to make them optional add ? to them */}
             <Route path="/admin" component={Dashboard} />
             <Route path="/" exact component={Home} />
           </Switch>
