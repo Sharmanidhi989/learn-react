@@ -17,7 +17,11 @@ class App extends Component {
         <div className="container">
           <Switch>
             {/* order your routes fro more specific ones to generic ones -> first child will be matched  */}
-            <Route path="/products" component={Products} />
+            <Route
+              path="/products"
+              render={(props) => <Products sortBy="newest" {...props} />}
+            />
+            {/* Route component is a wraper around the component that we pass in it. It has three props history, location, map */}
             <Route path="/posts" component={Posts} />
             <Route path="/admin" component={Dashboard} />
             <Route path="/" exact component={Home} />
