@@ -29,6 +29,9 @@ class App extends Component {
             <Route path="/" exact component={Home} />
           </Switch>
           {/* <Route path="/" exact component={Home} /> exactly match the route */}
+
+          {/* the query string parameters are present in the location under search:
+          example: localhost:3000/posts/2018/06?sortBy=newest&approved=true */}
         </div>
       </div>
     );
