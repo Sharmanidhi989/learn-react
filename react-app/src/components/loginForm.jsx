@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Input from "./shared/input";
 class LoginForm extends Component {
   state = { account: { username: "", password: "" } };
   // null or undefined cannot be used as value of controlled element
@@ -25,29 +26,18 @@ class LoginForm extends Component {
             this.handleSubmit(e);
           }}
         >
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              value={account.username}
-              onChange={(e) => this.handleChange(e)}
-              ref={this.username}
-              id="username"
-              name="username"
-              type="text"
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              onChange={(e) => this.handleChange(e)}
-              value={account.password}
-              type="password"
-              className="form-control"
-            />
-          </div>
+          <Input
+            name="username"
+            value={account.username}
+            label="Username"
+            onChange={(e) => this.handleChange(e)}
+          />
+          <Input
+            name="password"
+            value={account.password}
+            label="Password"
+            onChange={(e) => this.handleChange(e)}
+          />
           <button className="btn btn-primary btn-sm">Login</button>
         </form>
       </div>
