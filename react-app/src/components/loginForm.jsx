@@ -6,7 +6,7 @@ class LoginForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const errors = this.validate();
-    this.setState({ errors });
+    this.setState({ errors: errors || {} });
     if (errors) return;
   };
 
@@ -27,7 +27,7 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { account } = this.state;
+    const { account, errors } = this.state;
     return (
       <div className="card container m-5">
         <h1>Login</h1>
@@ -43,12 +43,14 @@ class LoginForm extends Component {
             value={account.username}
             label="Username"
             onChange={(e) => this.handleChange(e)}
+            error={errors.username}
           />
           <Input
             name="password"
             value={account.password}
             label="Password"
             onChange={(e) => this.handleChange(e)}
+            error={errors.password}
           />
           <button className="btn btn-primary btn-sm">Login</button>
         </form>
