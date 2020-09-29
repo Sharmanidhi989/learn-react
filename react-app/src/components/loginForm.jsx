@@ -1,19 +1,20 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 class LoginForm extends Component {
   state = { account: { username: "", password: "" } };
-
+  // null or undefined cannot be used as value of controlled element
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(e);
   };
 
-  handleChange = (e) => {
+  handleChange = ({ currentTarget: input }) => {
     const account = { ...this.state.account };
-    account[e.currentTarget.id] = e.currentTarget.value;
+    account[input.name] = input.value;
     this.setState({ account });
   };
 
   render() {
+    const { account } = this.state;
     return (
       <div className="card container m-5">
         <h1>Login</h1>
@@ -27,10 +28,11 @@ class LoginForm extends Component {
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
-              value={this.state.account.username}
+              value={account.username}
               onChange={(e) => this.handleChange(e)}
               ref={this.username}
               id="username"
+              name="username"
               type="text"
               className="form-control"
             />
@@ -39,8 +41,9 @@ class LoginForm extends Component {
             <label htmlFor="password">Password</label>
             <input
               id="password"
+              name="password"
               onChange={(e) => this.handleChange(e)}
-              value={this.state.account.password}
+              value={account.password}
               type="password"
               className="form-control"
             />
