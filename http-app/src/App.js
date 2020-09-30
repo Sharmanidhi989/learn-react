@@ -43,9 +43,19 @@ class App extends Component {
     const posts = this.state.posts.filter((p) => p.id !== post.id);
     this.setState({ posts });
     try {
-      await axios.delete(`${apiEndpoint}${post.id}`);
+      await axios.delete(`${apiEndpoint}/${post.id}`);
     } catch (ex) {
-      alert("Induced error");
+      // ex.request;
+      // ex.resposne; // if we get a response from server
+      //  expected error (404: not found) -> display user an specific error message
+      // unexpected error (network down, server down, OR bug) -> log them and show generic message
+
+      // alert("Induced error");
+      if (ex.response && ex.response.status === 404) alert("NOt FOund error");
+      else {
+        console.log("Error: ", ex);
+        alert("Unexpected error occured");
+      }
       this.setState({ posts: originalPosts });
     }
   };
