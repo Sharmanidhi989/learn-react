@@ -1,20 +1,37 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 
 class App extends Component {
   state = {
-    posts: []
+    posts: [],
   };
+
+  async componentDidMount() {
+    // async and await
+    // A promise is the object that holds the result of an async operation
+    // states of promise pending -> resolved (success) OR rejected (failure)
+
+    // const promise = axios.get("http://jsonplaceholder.typicode.com/posts");
+    // // console.log(promise);
+    // const response = await promise;
+    // console.log(response);
+
+    const { data: posts } = await axios.get(
+      "http://jsonplaceholder.typicode.com/posts"
+    );
+    this.setState({ posts });
+  }
 
   handleAdd = () => {
     console.log("Add");
   };
 
-  handleUpdate = post => {
+  handleUpdate = (post) => {
     console.log("Update", post);
   };
 
-  handleDelete = post => {
+  handleDelete = (post) => {
     console.log("Delete", post);
   };
 
@@ -33,7 +50,7 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.posts.map(post => (
+            {this.state.posts.map((post) => (
               <tr key={post.id}>
                 <td>{post.title}</td>
                 <td>
