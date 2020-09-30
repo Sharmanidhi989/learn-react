@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import http from "./services/httpService";
+import config from "./config.json";
 import "./App.css";
 
-const apiEndpoint = "http://jsonplaceholder.typicode.com/posts";
 class App extends Component {
   state = {
     posts: [],
@@ -18,20 +18,20 @@ class App extends Component {
     // const response = await promise;
     // console.log(response);
 
-    const { data: posts } = await http.get(apiEndpoint);
+    const { data: posts } = await http.get(config.apiEndpoint);
     this.setState({ posts });
   }
 
   handleAdd = async () => {
     const obj = { title: "Huntress", body: "Kate Quinn" };
-    const { data } = await http.post(apiEndpoint, obj);
+    const { data } = await http.post(config.apiEndpoint, obj);
     const posts = [data, ...this.state.posts];
     this.setState({ posts });
   };
 
   handleUpdate = async (post) => {
     post.title = "IKIGAI";
-    await http.put(`${apiEndpoint}/${post.id}`, post);
+    await http.put(`${config.apiEndpoint}/${post.id}`, post);
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
     posts[index] = { ...post };
@@ -43,7 +43,7 @@ class App extends Component {
     const posts = this.state.posts.filter((p) => p.id !== post.id);
     this.setState({ posts });
     try {
-      await http.delete(`${apiEndpoint}/${post.id}`);
+      await http.delete(`${config.apiEndpoint}/${post.id}`);
     } catch (ex) {
       console.log("HANDLE DELETE CATCH BLOCK");
       // ex.request;
