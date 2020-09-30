@@ -2,6 +2,19 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 
+axios.interceptors.response.use(null, (error) => {
+  console.log("INTerCEPTOR Called");
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.status < 500;
+  if (!expectedError) {
+    console.log("Error: ", error);
+    alert("Unexpected error occured");
+  }
+  return Promise.reject(error);
+});
+
 const apiEndpoint = "http://jsonplaceholder.typicode.com/posts";
 class App extends Component {
   state = {
@@ -45,6 +58,7 @@ class App extends Component {
     try {
       await axios.delete(`${apiEndpoint}/${post.id}`);
     } catch (ex) {
+      console.log("HANDLE DELETE CATCH BLOCK");
       // ex.request;
       // ex.resposne; // if we get a response from server
       //  expected error (404: not found) -> display user an specific error message
@@ -52,10 +66,6 @@ class App extends Component {
 
       // alert("Induced error");
       if (ex.response && ex.response.status === 404) alert("NOt FOund error");
-      else {
-        console.log("Error: ", ex);
-        alert("Unexpected error occured");
-      }
       this.setState({ posts: originalPosts });
     }
   };
