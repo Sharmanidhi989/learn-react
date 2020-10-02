@@ -4,6 +4,7 @@ import Form from "./shared/form";
 import http from "../services/httpService";
 import config from "../config.json";
 import { toast } from "react-toastify";
+import { repeat } from "lodash";
 
 class LoginForm extends Form {
   state = { data: { email: "", password: "" }, errors: {} };
@@ -14,18 +15,15 @@ class LoginForm extends Form {
     password: Joi.string().required(),
   };
 
-  doSubmit = async () => {
-    try {
-      const result = await http.post(
-        `${config.apiEndPoint}/auth`,
-        this.state.data
-      );
-      console.log(result.data);
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        toast.error(ex.response.data);
-      }
-    }
+  doSubmit = () => {
+    http
+      .post(`${config.apiEndPoint}/auth`, this.state.data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      });
   };
 
   render() {
