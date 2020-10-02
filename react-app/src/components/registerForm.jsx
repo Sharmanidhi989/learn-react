@@ -1,7 +1,11 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./shared/form";
+import config from "../config.json";
+import http from "../services/httpService";
+import { toast } from "react-toastify";
 
+const userEndPoint = `${config.apiEndPoint}/users`;
 class RegisterForm extends Form {
   state = { data: { email: "", password: "", name: "" }, errors: {} };
 
@@ -12,7 +16,14 @@ class RegisterForm extends Form {
   };
 
   doSubmit = () => {
-    console.log("Submitted");
+    try {
+      http.post(userEndPoint, this.state.data).then((response) => {
+        console.log(response);
+      });
+      toast.info("New User Created");
+    } catch (ex) {
+      toast.error(ex);
+    }
   };
 
   render() {
