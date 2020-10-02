@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import http from "../services/httpService";
-// import { getGenres } from "../services/genreService";
+import config from "../config.json";
 import Pagination from "./shared/pagination";
 import paginate from "../utils/paginate";
 import ListGroup from "./shared/listGroup";
@@ -16,10 +17,10 @@ const Movies = () => {
   const stepSize = useState(4)[0];
 
   useEffect(() => {
-    http.get("http://localhost:3900/api/movies").then((res) => {
+    http.get(config.getMoviesEndPoint).then((res) => {
       setMovies(res.data);
     });
-    http.get("http://localhost:3900/api/genres").then((response) => {
+    http.get(config.getGenresEndPoint).then((response) => {
       const genres = [{ _id: "", name: "All Genres" }, ...response.data];
       setGenres(genres);
     });
@@ -36,7 +37,18 @@ const Movies = () => {
   }
 
   function handleDelete(movie) {
-    setMovies(movies.filter((m) => m._id !== movie._id));
+    const originalMovies = movies;
+    setMovies(originalMovies.filter((m) => m._id !== movie._id));
+
+    try {
+      http.delete(`${config.getMoviesEndPoint}/${movie._id}`);
+      toast("Deleted successfully");
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        toast.error("Error has occured");
+        setMovies(originalMovies);
+      }
+    }
   }
 
   function handleLike(movie) {
