@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import http from "../services/httpService";
+// import { getGenres } from "../services/genreService";
 import Pagination from "./shared/pagination";
 import paginate from "../utils/paginate";
 import ListGroup from "./shared/listGroup";
@@ -16,10 +16,13 @@ const Movies = () => {
   const stepSize = useState(4)[0];
 
   useEffect(() => {
-    setMovies(getMovies());
-
-    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-    setGenres(genres);
+    http.get("http://localhost:3900/api/movies").then((res) => {
+      setMovies(res.data);
+    });
+    http.get("http://localhost:3900/api/genres").then((response) => {
+      const genres = [{ _id: "", name: "All Genres" }, ...response.data];
+      setGenres(genres);
+    });
   }, []); //in favor of componentDidMount
 
   function getPagedData() {
