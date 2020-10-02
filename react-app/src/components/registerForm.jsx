@@ -17,7 +17,9 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     try {
-      await http.post(userEndPoint, this.state.data);
+      const response = await http.post(userEndPoint, this.state.data);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+      this.props.history.push("/");
       toast.info("New User Created");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
