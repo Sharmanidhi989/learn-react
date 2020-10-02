@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import jwtDecode from "jwt-decode";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/navbar";
@@ -13,9 +14,19 @@ import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    try {
+      const jwt = localStorage.getItem("token");
+      const currentUser = jwtDecode(jwt);
+      setCurrentUser(currentUser);
+    } catch (ex) {}
+  }, []);
+
   return (
     <Fragment>
-      <Navbar />
+      <Navbar currentUser={currentUser} />
       <ToastContainer />
       <main className="container">
         <Switch>

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ currentUser }) => {
   return (
     <Fragment>
       <nav className="navbar navbar-light bg-light">
@@ -21,6 +21,7 @@ const Navbar = () => {
           Login
         </NavLink>
       </nav>
+      {currentUser.email}
     </Fragment>
   );
 };
