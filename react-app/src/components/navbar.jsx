@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const Navbar = ({ currentUser }) => {
+const Navbar = ({ currentUser, onLogout }) => {
   return (
     <Fragment>
       <nav className="navbar navbar-light bg-light">
@@ -17,11 +17,25 @@ const Navbar = ({ currentUser }) => {
         <NavLink className="nav-item nav-link" to="/rentals">
           Rentals
         </NavLink>
-        <NavLink className="nav-item nav-link" to="/login">
-          Login
-        </NavLink>
+        {!currentUser && (
+          <Fragment>
+            <NavLink className="nav-item nav-link" to="/login">
+              Login
+            </NavLink>
+            <NavLink className="nav-item nav-link" to="/register">
+              Register
+            </NavLink>
+          </Fragment>
+        )}
+        {currentUser && (
+          <Fragment>
+            <h1>{currentUser.email}</h1>
+            <sapn className="text-primary" onClick={() => onLogout()}>
+              LogOut
+            </sapn>
+          </Fragment>
+        )}
       </nav>
-      {currentUser.email}
     </Fragment>
   );
 };

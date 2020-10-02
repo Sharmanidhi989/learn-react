@@ -24,9 +24,14 @@ function App() {
     } catch (ex) {}
   }, []);
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+  }
+
   return (
     <Fragment>
-      <Navbar currentUser={currentUser} />
+      <Navbar currentUser={currentUser} onLogout={handleLogout} />
       <ToastContainer />
       <main className="container">
         <Switch>
