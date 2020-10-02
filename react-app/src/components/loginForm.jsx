@@ -21,7 +21,7 @@ class LoginForm extends Form {
       .then((response) => {
         let jwt = response.data;
         localStorage.setItem("token", jwt);
-        this.props.history.push("/");
+        window.location = "/";
       })
       .catch((error) => {
         if (error.response) toast.error(error.response.data);

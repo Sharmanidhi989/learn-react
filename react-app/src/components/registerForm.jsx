@@ -19,7 +19,7 @@ class RegisterForm extends Form {
     try {
       const response = await http.post(userEndPoint, this.state.data);
       localStorage.setItem("token", response.headers["x-auth-token"]);
-      this.props.history.push("/");
+      window.location = "/";
       toast.info("New User Created");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
