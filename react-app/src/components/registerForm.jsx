@@ -15,14 +15,16 @@ class RegisterForm extends Form {
     name: Joi.string().required(),
   };
 
-  doSubmit = () => {
+  doSubmit = async () => {
     try {
-      http.post(userEndPoint, this.state.data).then((response) => {
-        console.log(response);
-      });
+      await http.post(userEndPoint, this.state.data);
       toast.info("New User Created");
     } catch (ex) {
-      toast.error(ex);
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.email = ex.response.data;
+        this.setState({ errors });
+      }
     }
   };
 
