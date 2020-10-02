@@ -1,18 +1,31 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./shared/form";
+import http from "../services/httpService";
+import config from "../config.json";
+import { toast } from "react-toastify";
 
 class LoginForm extends Form {
-  state = { data: { username: "", password: "" }, errors: {} };
+  state = { data: { email: "", password: "" }, errors: {} };
   // null or undefined cannot be used as value of controlled element
 
   schema = {
-    username: Joi.string().required().label("Username"),
+    email: Joi.string().required().label("Username"),
     password: Joi.string().required(),
   };
 
-  doSubmit = () => {
-    console.log("Submitted");
+  doSubmit = async () => {
+    try {
+      const result = await http.post(
+        `${config.apiEndPoint}/auth`,
+        this.state.data
+      );
+      console.log(result.data);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        toast.error(ex.response.data);
+      }
+    }
   };
 
   render() {
@@ -26,7 +39,7 @@ class LoginForm extends Form {
             this.handleSubmit(e);
           }}
         >
-          {this.renderInput("username", "Username")}
+          {this.renderInput("email", "Email")}
           {this.renderInput("password", "Password", "password")}
           {this.renderButton("Login")}
         </form>
