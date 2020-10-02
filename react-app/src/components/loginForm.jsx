@@ -19,10 +19,12 @@ class LoginForm extends Form {
     http
       .post(`${config.apiEndPoint}/auth`, this.state.data)
       .then((response) => {
-        console.log(response.data);
+        let jwt = response.data;
+        localStorage.setItem("token", jwt);
+        this.props.history.push("/");
       })
       .catch((error) => {
-        toast.error(error.response.data);
+        if (error.response) toast.error(error.response.data);
       });
   };
 
