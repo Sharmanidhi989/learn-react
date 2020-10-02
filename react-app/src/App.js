@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import jwtDecode from "jwt-decode";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/navbar";
@@ -12,20 +11,20 @@ import NotFound from "./components/notFound";
 import MovieForm from "./components/movieform";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import { logout, CurrentUser } from "./services/authService";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     try {
-      const jwt = localStorage.getItem("token");
-      const currentUser = jwtDecode(jwt);
+      const currentUser = CurrentUser();
       setCurrentUser(currentUser);
     } catch (ex) {}
   }, []);
 
   function handleLogout() {
-    localStorage.removeItem("token");
+    logout();
     setCurrentUser(null);
   }
 

@@ -2,8 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./shared/form";
 import config from "../config.json";
-import http from "../services/httpService";
-import { toast } from "react-toastify";
+import { register } from "../services/authService";
 
 const userEndPoint = `${config.apiEndPoint}/users`;
 class RegisterForm extends Form {
@@ -16,18 +15,12 @@ class RegisterForm extends Form {
   };
 
   doSubmit = async () => {
-    try {
-      const response = await http.post(userEndPoint, this.state.data);
-      localStorage.setItem("token", response.headers["x-auth-token"]);
-      window.location = "/";
-      toast.info("New User Created");
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.email = ex.response.data;
-        this.setState({ errors });
-      }
-    }
+    const result = await register(
+      this.state.data,
+      userEndPoint,
+      this.state.erros
+    );
+    if (result) this.setState({ errors: result });
   };
 
   render() {

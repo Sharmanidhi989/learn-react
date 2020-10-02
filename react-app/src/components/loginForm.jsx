@@ -1,10 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./shared/form";
-import http from "../services/httpService";
-import config from "../config.json";
-import { toast } from "react-toastify";
-import { repeat } from "lodash";
+import { login } from "../services/authService";
 
 class LoginForm extends Form {
   state = { data: { email: "", password: "" }, errors: {} };
@@ -16,16 +13,7 @@ class LoginForm extends Form {
   };
 
   doSubmit = () => {
-    http
-      .post(`${config.apiEndPoint}/auth`, this.state.data)
-      .then((response) => {
-        let jwt = response.data;
-        localStorage.setItem("token", jwt);
-        window.location = "/";
-      })
-      .catch((error) => {
-        if (error.response) toast.error(error.response.data);
-      });
+    login(this.state.data);
   };
 
   render() {

@@ -30,9 +30,9 @@ const Navbar = ({ currentUser, onLogout }) => {
         {currentUser && (
           <Fragment>
             <h1>{currentUser.email}</h1>
-            <sapn className="text-primary" onClick={() => onLogout()}>
+            <span className="text-primary" onClick={() => onLogout()}>
               LogOut
-            </sapn>
+            </span>
           </Fragment>
         )}
       </nav>
