@@ -11,6 +11,7 @@ import NotFound from "./components/notFound";
 import MovieForm from "./components/movieform";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import ProtectedRoute from "./components/shared/protectedRoute";
 import { logout, CurrentUser } from "./services/authService";
 
 function App() {
@@ -36,14 +37,11 @@ function App() {
         <Switch>
           <Route path="/register" component={RegisterForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
-          <Route
+          <ProtectedRoute
             path="/movies/:id"
-            render={(props) => {
-              if (!currentUser.hasOwnProperty("email"))
-                return <Redirect to="/login" />;
-              return <MovieForm {...props}></MovieForm>;
-            }}
-          ></Route>
+            component={MovieForm}
+            currentUser={currentUser}
+          />
           <Route path="/movies" component={Movies}></Route>
           <Route path="/customers" component={Customers}></Route>
           <Route path="/rentals" component={Rentals}></Route>
