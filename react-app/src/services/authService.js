@@ -32,6 +32,7 @@ export async function register(user, userEndPoint, errorsobj) {
 
 export function logout() {
   localStorage.removeItem("token");
+  window.location = "/";
 }
 
 export function CurrentUser() {

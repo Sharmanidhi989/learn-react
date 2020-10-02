@@ -36,7 +36,14 @@ function App() {
         <Switch>
           <Route path="/register" component={RegisterForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
-          <Route path="/movies/:id" component={MovieForm}></Route>
+          <Route
+            path="/movies/:id"
+            render={(props) => {
+              if (!currentUser.hasOwnProperty("email"))
+                return <Redirect to="/login" />;
+              return <MovieForm {...props}></MovieForm>;
+            }}
+          ></Route>
           <Route path="/movies" component={Movies}></Route>
           <Route path="/customers" component={Customers}></Route>
           <Route path="/rentals" component={Rentals}></Route>

@@ -17,7 +17,7 @@ const Navbar = ({ currentUser, onLogout }) => {
         <NavLink className="nav-item nav-link" to="/rentals">
           Rentals
         </NavLink>
-        {!currentUser && (
+        {!currentUser.hasOwnProperty("email") && (
           <Fragment>
             <NavLink className="nav-item nav-link" to="/login">
               Login
@@ -27,7 +27,7 @@ const Navbar = ({ currentUser, onLogout }) => {
             </NavLink>
           </Fragment>
         )}
-        {currentUser && (
+        {currentUser.hasOwnProperty("email") && (
           <Fragment>
             <h1>{currentUser.email}</h1>
             <span className="text-primary" onClick={() => onLogout()}>
