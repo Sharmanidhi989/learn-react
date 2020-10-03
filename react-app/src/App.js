@@ -27,12 +27,20 @@ function App() {
 
   function handleLogout() {
     logout();
-    setCurrentUser(null);
+    setCurrentUser({});
+  }
+
+  function handleUserTouched() {
+    return "@!@!@!@!@!@!@!@!@!";
+    // can also update the user state here
+    // demo to update the context
   }
 
   return (
     // returns a provider component
-    <UserContext.Provider value={currentUser}>
+    <UserContext.Provider
+      value={{ currentUser, onUserTouch: handleUserTouched }}
+    >
       <Fragment>
         <Navbar currentUser={currentUser} onLogout={handleLogout} />
         <ToastContainer />
