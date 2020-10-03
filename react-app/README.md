@@ -274,3 +274,22 @@ Updating phase
 Umounting phase
   - component will unmount
 ```
+
+After build is created and to test production on local
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+yarn global add serve
+serve -s build
+
+Find out more about deployment here:
+
+bit.ly/CRA-deploy
+
+Extra Links to Read Up:
+
+1. https://medium.com/@timtan93/states-and-componentdidmount-in-functional-components-with-hooks-cac5484d22ad
+2. https://reactjs.org/docs/hooks-state.html
+3. https://blog.bitsrc.io/understanding-react-v16-4-new-component-lifecycle-methods-fa7b224efd7d
+4. https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
