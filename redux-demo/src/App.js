@@ -4,6 +4,7 @@ import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import Header from "./components/shared/Header";
 import PageNotFound from './components/PageNotFound';
+import CoursesPage from './components/courses/CoursesPage';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Fragment>
       <Header />
        <Switch>
+          <Route path="/courses" component={CoursesPage}></Route>
           <Route path="/about" component={AboutPage}></Route>
           <Route path="/" exact component={HomePage}></Route>
           <Route component={PageNotFound} />
