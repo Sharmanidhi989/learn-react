@@ -5,15 +5,21 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
+import configureStore from './redux/configureStore';
+import { Provider as ReduxProvider } from 'react-redux';
+
+const store = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <div className="container-fluid">
-        <App/>
-      </div>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <ReduxProvider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <div className="container-fluid">
+          <App/>
+        </div>
+      </BrowserRouter>
+    </React.StrictMode>
+  </ReduxProvider>,
   document.getElementById('root')
 );
 
